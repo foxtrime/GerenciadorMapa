@@ -19,7 +19,7 @@
 				        		<select name="categoria" id="categoria" class="form-control form-control error" required>
 				        			<option value="" selected> </option>
 				        		@foreach ($categorias as $categoria)
-                                    <option value="{{$categoria->nome}}"> {{$categoria->nome}} </option> 
+                                    <option value="{{$categoria->id}}"> {{$categoria->nome}} </option> 
                                 @endforeach
 				        	    </select>
 				        	<span class="material-input"></span>
@@ -54,23 +54,46 @@
         </div>
 <script type="text/javascript">
     var map;
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: -22.782946, lng: -43.431588},
-            zoom: 14,
-        });
-        map.addListener('click', function(e) {
-    placeMarkerAndPanTo(e.latLng, map);
-  });
+    var marker;
+
+    function placeMarker(location) {
+        if (marker) {
+            //if marker already was created change positon
+            marker.setPosition(location);
+        } else {
+            //create a marker
+            marker = new google.maps.Marker({          
+                position: location,
+                map: map,
+                draggable: true
+            });
+        }
     }
-    function placeMarkerAndPanTo(latLng, map) {
-  var marker = new google.maps.Marker({
-    position: latLng,
-    map: map
-  });
-  map.panTo(latLng);
-}
-    
+
+    function initMap(){
+        var centerPosition = new google.maps.LatLng(-22.782946,-43.431588);
+        var options = {
+            zoom: 14,
+            center: centerPosition,
+            mapTypeId: 'roadmap',
+            
+        };
+        map = new google.maps.Map($('#map')[0], options);
+        
+        google.maps.event.addListener(map, 'click', function(evt){
+            placeMarker(evt.latLng);
+            var latLng = evt.latLng;
+            console.log(latLng);
+            var lat = $('#lat');
+            var lng = $('#lng');
+
+            lat.val(latLng.lat());
+            lng.val(latLng.lng());
+        });
+        
+        google.maps.event.addDomListener(window, 'load', initMap);
+
+    }
 
 
           

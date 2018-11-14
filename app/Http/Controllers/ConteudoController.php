@@ -37,7 +37,11 @@ class ConteudoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $conteudo = new Conteudo();
+       //dd($request);
+        $conteudo->save();
+       
+        return redirect('conteudo');
     }
 
     /**
