@@ -16,7 +16,8 @@
     function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: { lat: -22.782946, lng: -43.431588},
-      zoom: 14
+      zoom: 14,
+      disableDefaultUI: true,
     });
     var markers = [];
     let infowindow;
@@ -28,6 +29,30 @@
 						title:"{{ $conteudo->titulo }}",
 						animation: google.maps.Animation.DROP,
         });
+        
+        var content = 	'<div id="iw-container">'+
+                            '<div class="iw-title">'+
+                                '<p><b>{{ $conteudo->categoria->nome }}</b></p>' +
+                            '</div>'+
+                            '<div class="iw-content">' +
+		                    	'<p>{{ $conteudo->nome }}</p>'+
+		                    '</div>' +
+                        '</div>';
+                        
+				  	// A new Info Window is created and set content
+				  	let infoWindow_{{ $conteudo->id }} = new google.maps.InfoWindow({content: content, maxWidth: 350});
+				  	google.maps.event.addListener(infoWindow_{{ $conteudo->id }}, 'domready', function() {
+                        
+					});
+					google.maps.event.addListener(marker_{{ $conteudo->id }}, 'click', () => {
+						if(infowindow)
+							infowindow.close();
+    					infoWindow_{{ $conteudo->id }}.open(map, marker_{{ $conteudo->id }});
+    					infowindow = infoWindow_{{ $conteudo->id }};
+  					});
+					markers.push(marker_{{ $conteudo->id }});
+
+        
     @endforeach
 }
 

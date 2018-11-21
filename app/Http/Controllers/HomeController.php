@@ -25,25 +25,27 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $conteudos = Conteudo::all();
+        $conteudos = Conteudo::with('categoria')->get();
+        //dd($conteudos);
         return view('home',compact('conteudos'));
     }
 
-    public function DadosView(Request $request)
-    {
-        dd($request);
-        $conteudos = json_decode($request->conteudos);
+    // public function DadosView(Request $request)
+    // {
+    //     dd($request);
+    //     $conteudos = json_decode($request->conteudos);
 
-        $retorno = [];
+    //     $retorno = [];
 
-        foreach($conteudos as $conteudo)
-        {
-            $retorno[] = Conteudo::with([
-                'nome',
-                'lat',
-                'lng'
-            ])->find($conteudo->id);
-        }
-        return json_encode($retorno);
-    }
+    //     foreach($conteudos as $conteudo)
+    //     {
+    //         $retorno[] = Conteudo::with([
+    //             'nome',
+    //             'lat',
+    //             'lng'
+    //         ])->find($conteudo->id);
+    //     }
+    //     return json_encode($retorno);
+    //     dd($retorno);
+    // }
 }

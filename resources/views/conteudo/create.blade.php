@@ -74,6 +74,7 @@
         var options = {
             zoom: 14,
             center: centerPosition,
+            disableDefaultUI: true,
             mapTypeId: 'roadmap',
             
         };
