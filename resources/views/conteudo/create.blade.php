@@ -16,7 +16,7 @@
                     <div class="col-md-6">
                         <div class="form-group label-floating has-roxo is-empty">
 				        	<label class="control-label">Selecione a categoria</label>
-				        		<select name="categoria" id="categoria" class="form-control form-control error" required>
+				        		<select name="categoria_id" id="categoria_id" class="form-control form-control error" required>
 				        			<option value="" selected> </option>
 				        		@foreach ($categorias as $categoria)
                                     <option value="{{$categoria->id}}"> {{$categoria->nome}} </option> 
@@ -39,7 +39,6 @@
                             <label for="lng">Longitude</label>
                             <input type="text" class="form-control" name="lng" id="lng">
                         </div>
-
                     </div>
                 <div class="col-md-6">
                     <div id="map" style="position: relative;overflow: hidden;width: 100%;height: 400px;"></div>
@@ -78,6 +77,9 @@
             mapTypeId: 'roadmap',
             
         };
+
+
+
         map = new google.maps.Map($('#map')[0], options);
         
         google.maps.event.addListener(map, 'click', function(evt){
@@ -98,7 +100,7 @@
 
           
 </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYcLJZYyy0T-9KTp-hmSd-r2H9sSNiY-s&callback=initMap"
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYcLJZYyy0T-9KTp-hmSd-r2H9sSNiY-s&libraries=places&callback=initMap"
         async defer></script> 
     </div>
 @stop

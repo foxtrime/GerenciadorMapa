@@ -16,28 +16,29 @@
             <table class="table table-hover table-striped compact">
                 <thead>
                     <tr>
-                        <th>CategoriaID</th>
-                        <th>Nome</th> 
+                        <th>Categoria Nome</th>
+                        <th>Conteudo Titulo</th> 
                         <th>Ações</th>
                     </tr>						
                 </thead>
                 <tbody>
-                    {{-- @foreach($categorias as $categoria)
+                    @foreach($conteudos as $conteudo)
                         <tr>
-                            <td>{{ $categoria->nome }}</td>
+                            <td>{{ $conteudo->categoria->nome }}</td>
+                            <td>{{ $conteudo->nome }}</td>
                             <td>
-                            <a href="{{action('CategoriaController@edit',$categoria->id)}}" 
+                            <a href="{{action('ConteudoController@edit',$conteudo->id)}}" 
                                 class="btn btn-warning btn-xs action botao_acao ">
                                 <i class="glyphicon glyphicon-pencil "></i>
                             </a>                        
-                            <form action="{{action('CategoriaController@destroy', $categoria->id)}}" method="post">
+                            <form action="{{action('ConteudoController@destroy', $conteudo->id)}}" method="post">
                                 {{csrf_field()}}
                                 <input name="_method" type="hidden" value="DELETE">
                                 <button class="btn btn-danger btn-xs action botao_acao" type="submit"><i class="glyphicon glyphicon-remove "></i></button>   
                             </form>                    
                         </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach 
                 </tbody>
             </table>
         </div>

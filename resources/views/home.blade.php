@@ -18,8 +18,19 @@
       center: { lat: -22.782946, lng: -43.431588},
       zoom: 14
     });
+    var markers = [];
+    let infowindow;
+
+    @foreach($conteudos as $conteudo)
+        var marker_{{ $conteudo->id }} = new google.maps.Marker({
+            position: new google.maps.LatLng( {{ $conteudo->lat }} , {{ $conteudo->lng }}), // variável com as coordenadas Lat e Lng
+						map: map,
+						title:"{{ $conteudo->titulo }}",
+						animation: google.maps.Animation.DROP,
+        });
+    @endforeach
 }
-  
+
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYcLJZYyy0T-9KTp-hmSd-r2H9sSNiY-s&callback=initMap"
   async defer></script> 

@@ -15,7 +15,9 @@ class ConteudoController extends Controller
      */
     public function index()
     {
-        return view('conteudo/index');
+        $conteudos = Conteudo::with('categoria')->get();
+        //dd($conteudos);
+        return view('conteudo/index', compact('conteudos'));
     }
 
     /**
@@ -38,7 +40,12 @@ class ConteudoController extends Controller
     public function store(Request $request)
     {
         $conteudo = new Conteudo();
-       //dd($request);
+        
+        $conteudo->nome             = $request->nome;
+        $conteudo->lng              = $request->lng;
+        $conteudo->lat              = $request->lat;
+        $conteudo->categoria_id     = $request->categoria_id;
+        //dd($conteudo);
         $conteudo->save();
        
         return redirect('conteudo');
@@ -86,6 +93,12 @@ class ConteudoController extends Controller
      */
     public function destroy($id)
     {
-        //
+       //Pega conteudo
+        $conteudo = Conteudo::find($id);
+        //dd($conteudo);
+        //Apaga Conteudo
+        $apagar = $conteudo->delete();
+
+        return redirect('conteudo');
     }
 }
