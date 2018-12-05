@@ -19,4 +19,9 @@ class Conteudo extends Model
     {
         return $this->belongsTo('App\Categoria','categoria_id');
     }
+
+    public function informacao()
+    {
+        return $this->hasMany('App\Informacao');
+    }
 }

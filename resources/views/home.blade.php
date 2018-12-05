@@ -37,6 +37,9 @@
                             '<div class="iw-content">' +
 		                    	'<p>{{ $conteudo->nome }}</p>'+
 		                    '</div>' +
+                            '<div class="iw-content">' +
+		                    	'<p><b>{{ $info }}:</b> {{$info}}</p>'+
+		                    '</div>' +
                         '</div>';
                         
 				  	// A new Info Window is created and set content

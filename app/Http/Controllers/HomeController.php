@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Categoria;
 use App\Conteudo;
+use App\Informacao;
 
 class HomeController extends Controller
 {
@@ -26,8 +27,9 @@ class HomeController extends Controller
     public function index()
     {
         $conteudos = Conteudo::with('categoria')->get();
-        //dd($conteudos);
-        return view('home',compact('conteudos'));
+        $info = Informacao::all();
+        dd($info);
+        return view('home',compact('conteudos','info'));
     }
 
     // public function DadosView(Request $request)
