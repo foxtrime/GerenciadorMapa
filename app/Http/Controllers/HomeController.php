@@ -26,10 +26,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $conteudos = Conteudo::with('categoria')->get();
-        $info = Informacao::all();
-        dd($info);
-        return view('home',compact('conteudos','info'));
+        $conteudos = Conteudo::with('categoria','informacao')->get();
+
+        //dd($conteudos);
+        return view('home',compact('conteudos'));
     }
 
     // public function DadosView(Request $request)

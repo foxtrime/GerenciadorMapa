@@ -29,6 +29,8 @@
 						title:"{{ $conteudo->titulo }}",
 						animation: google.maps.Animation.DROP,
         });
+
+
         
         var content = 	'<div id="iw-container">'+
                             '<div class="iw-title">'+
@@ -38,9 +40,15 @@
 		                    	'<p>{{ $conteudo->nome }}</p>'+
 		                    '</div>' +
                             '<div class="iw-content">' +
-		                    	'<p><b>{{ $info }}:</b> {{$info}}</p>'+
-		                    '</div>' +
+                                '@for ($i = 0; $i < count($conteudo->informacao); $i++)'+
+                                    '<p>'+
+                                        '<b><td>{{$conteudo->informacao[$i]->titulo}}</td></b>: ' +
+                                        '<td>{{$conteudo->informacao[$i]->dado}}</td>' +
+                                    '</p>'+
+                                '@endfor'+
+                            '</div>'
                         '</div>';
+      console.log(content);
                         
 				  	// A new Info Window is created and set content
 				  	let infoWindow_{{ $conteudo->id }} = new google.maps.InfoWindow({content: content, maxWidth: 350});
