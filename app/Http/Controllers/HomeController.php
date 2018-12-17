@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\User;
 use App\Categoria;
 use App\Conteudo;
 use App\Informacao;
@@ -26,10 +28,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $conteudos = Conteudo::with('categoria','informacao')->get();
+        $perfil = auth()->user()->nivel;
+        //dd($perfil);
+        
+        if($perfil == "admin"){
+            $conteudos = Conteudo::with('categoria','informacao')->get();
+            //dd($conteudos);
+            return view('home',compact('conteudos'));
+        }else{
+            $conteudos = Conteudo::with('categoria','informacao')->get();
+            $categorias = Categoria::all();
 
-        //dd($conteudos);
-        return view('home',compact('conteudos'));
+            return view('user/index',compact('conteudos','categorias'));
+        }
     }
 
     // public function DadosView(Request $request)
