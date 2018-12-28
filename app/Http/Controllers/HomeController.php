@@ -38,7 +38,7 @@ class HomeController extends Controller
         }else{
             $conteudos = Conteudo::with('categoria','informacao')->get();
             $categorias = Categoria::all();
-
+            //dd($conteudos);
             return view('user/index',compact('conteudos','categorias'));
         }
     }

@@ -40,9 +40,10 @@
                                 <div id="mySidenav" class="sidenav">
                                         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                                         @foreach($categorias as $dado)
-                                        <p>{{$dado->nome}}</p>
+                                <p><input id="{{$dado->id}}" type="checkbox" onchange="filterMarkers()" checked/>
+                                            {{$dado->nome}}</p>
+                                            
                                         @endforeach
-
                                 </div>
                                         <!-- Use any element to open the sidenav -->
                                         <button style="
@@ -88,14 +89,17 @@
         <div id="map" ></div>
     <script>
       var map;
+      var markers = [];
     function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: { lat: -22.782946, lng: -43.431588},
       zoom: 14,
       disableDefaultUI: true,
     });
-    var markers = [];
     let infowindow;
+
+    console.log(markers);
+
 
     @foreach($conteudos as $conteudo)
         var marker_{{ $conteudo->id }} = new google.maps.Marker({
@@ -105,7 +109,7 @@
 						animation: google.maps.Animation.DROP,
         });
 
-
+       
         
         var content = 	'<div id="iw-container">'+
                             '<div class="iw-title">'+
@@ -123,7 +127,7 @@
                                 '@endfor'+
                             '</div>'
                         '</div>';
-      console.log(content);
+      
                         
 				  	// A new Info Window is created and set content
 				  	let infoWindow_{{ $conteudo->id }} = new google.maps.InfoWindow({content: content, maxWidth: 350});
@@ -138,10 +142,24 @@
   					});
 					markers.push(marker_{{ $conteudo->id }});
 
-        
-    @endforeach
+        // console.log(marker_{{ $conteudo->id }});
 
+        
+
+    @endforeach
 }
+
+function filterMarkers(){
+
+    if (document.getElementById({{$dado->id}}).checked)
+		show = map;
+	else
+	    show = null;
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(show);
+	}
+}
+
   </script>
      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYcLJZYyy0T-9KTp-hmSd-r2H9sSNiY-s&callback=initMap"
      async defer></script>
