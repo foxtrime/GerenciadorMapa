@@ -11,6 +11,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
             
         <script src="{{ asset('js/meu.js') }}" defer></script>
+        <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous">
+        </script>
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('css/meu.css') }}" rel="stylesheet">
@@ -31,41 +33,42 @@
   </head>
 <body>
     <div id="app">
-            <nav class="navbar navbar-default navbar-static-top">
-                <div class="container">
-                    <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                        <!-- Left Side Of Navbar -->
-                         <ul class="nav navbar-nav">
-
-                                <div id="mySidenav" class="sidenav">
-                                        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                                        @foreach($categorias as $dado)
-                                <p><input id="{{$dado->id}}" type="checkbox" onchange="filterMarkers()" checked/>
-                                            {{$dado->nome}}</p>
-                                            
-                                        @endforeach
-                                </div>
-                                        <!-- Use any element to open the sidenav -->
-                                        <button style="
-                                        font-size: 13;
-                                        height: 35px;
-                                        background-color: #630909;
-                                        border: none;
-                                        color: white;
-                                        padding-top: -1px;
-                                    " onclick="openNav()">Filtro</button>
-                                <script>
-                                function openNav() {
+        <nav class="navbar navbar-default navbar-static-top">
+            <div class="container">
+                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Left Side Of Navbar -->
+                    <ul class="nav navbar-nav">
+                        <div id="mySidenav" class="sidenav">
+                            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                            {{-- onchange="filterMarkers()" dentro do input --}}
+                           
+                            @foreach($categorias as $dado)
+                        <p><input id="{{$dado->id}}" value="{{$dado->id}}" type="checkbox" onchange="filterMarkers(this,'{{$dado->id}}')" checked/>
+                                {{$dado->nome}}</p>
+                            @endforeach
+                           
+                        </div>
+                        <!-- Use any element to open the sidenav -->
+                        <button style="
+                        font-size: 13;
+                        height: 35px;
+                        background-color: #630909;
+                        border: none;
+                        color: white;
+                        padding-top: -1px;" 
+                        onclick="openNav()">Filtro</button>
+                        
+                        <script>
+                            function openNav() {
                                 document.getElementById("mySidenav").style.width = "250px";
-                                }
+                            }
 
-                                /* Set the width of the side navigation to 0 */
-                                function closeNav() {
+                        /* Set the width of the side navigation to 0 */
+                            function closeNav() {
                                 document.getElementById("mySidenav").style.width = "0";
-                                }
-                                </script>
-
-                        </ul> 
+                            }
+                        </script>
+                    </ul> 
                     
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
@@ -90,23 +93,23 @@
     <script>
       var map;
       var markers = [];
+      //console.log(markers);
     function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: { lat: -22.782946, lng: -43.431588},
       zoom: 14,
-      disableDefaultUI: true,
     });
     let infowindow;
 
-    console.log(markers);
-
-
+    //console.log(markers);
+   
     @foreach($conteudos as $conteudo)
         var marker_{{ $conteudo->id }} = new google.maps.Marker({
             position: new google.maps.LatLng( {{ $conteudo->lat }} , {{ $conteudo->lng }}), // variável com as coordenadas Lat e Lng
 						map: map,
 						title:"{{ $conteudo->titulo }}",
 						animation: google.maps.Animation.DROP,
+                        categoria_id: {{$conteudo->categoria_id}},
         });
 
        
@@ -149,19 +152,41 @@
     @endforeach
 }
 
-function filterMarkers(){
-
-    if (document.getElementById({{$dado->id}}).checked)
-		show = map;
-	else
-	    show = null;
-	for (var i = 0; i < markers.length; i++) {
-		markers[i].setMap(show);
-	}
+function show(categoria_id) {
+  for (var i=0; i<markers.length; i++) {
+    if (markers[i].categoria_id == categoria_id) {
+      markers[i].setVisible(true);
+    }
+  }
+  // == check the checkbox ==
+  document.getElementById(categoria_id+"box").checked = true;
 }
 
-  </script>
-     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYcLJZYyy0T-9KTp-hmSd-r2H9sSNiY-s&callback=initMap"
-     async defer></script>
+// == hides all markers of a particular category, and ensures the checkbox is cleared ==
+function hide(categoria_id) {
+  for (var i=0; i<markers.length; i++) {
+    if (markers[i].categoria_id == categoria_id) {
+      markers[i].setVisible(false);
+    }
+  }
+  // == clear the checkbox ==
+  document.getElementById(categoria_id+"box").checked = false;
+  // == close the info window, in case its open on a marker that we just hid
+  ib.close();
+}
+
+
+function filterMarkers(box,categoria_id){
+    if (box.checked) {
+    show(categoria_id);
+  } else {
+    hide(categoria_id);
+  }
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYcLJZYyy0T-9KTp-hmSd-r2H9sSNiY-s&callback=initMap" async defer>
+</script>
+     
+     
   </body>
 </html>
