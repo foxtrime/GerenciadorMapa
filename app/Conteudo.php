@@ -12,7 +12,8 @@ class Conteudo extends Model
         'nome',
         'lat',
         'lng',
-        'categoria_id'
+        'categoria_id',
+        'icon_id',
     ];
 
     public function categoria()
@@ -24,4 +25,10 @@ class Conteudo extends Model
     {
         return $this->hasMany('App\Informacao');
     }
+
+    public function icon()
+    {
+        return $this->belongsTo('App\Icons','icon_id');
+    }
+
 }

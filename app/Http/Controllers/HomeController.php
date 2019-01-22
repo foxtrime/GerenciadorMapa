@@ -8,6 +8,7 @@ use App\User;
 use App\Categoria;
 use App\Conteudo;
 use App\Informacao;
+use App\Icons;
 
 class HomeController extends Controller
 {
@@ -36,7 +37,7 @@ class HomeController extends Controller
             //dd($conteudos);
             return view('home',compact('conteudos'));
         }else{
-            $conteudos = Conteudo::with('categoria','informacao')->get();
+            $conteudos = Conteudo::with('categoria','informacao','icon')->get();
             $categorias = Categoria::all();
             //dd($conteudos);
             return view('user/index',compact('conteudos','categorias'));

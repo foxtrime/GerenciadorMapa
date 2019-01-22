@@ -102,11 +102,14 @@
     let infowindow;
 
     //console.log(markers);
-   
+
+    
     @foreach($conteudos as $conteudo)
+        var teste3 = '{{$conteudo->icon->nomeicone}}'
         var marker_{{ $conteudo->id }} = new google.maps.Marker({
             position: new google.maps.LatLng( {{ $conteudo->lat }} , {{ $conteudo->lng }}), // variável com as coordenadas Lat e Lng
 						map: map,
+                        icon: teste3,
 						title:"{{ $conteudo->titulo }}",
 						animation: google.maps.Animation.DROP,
                         categoria_id: {{$conteudo->categoria_id}},

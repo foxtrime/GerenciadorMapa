@@ -18,12 +18,17 @@ class CreateConteudosTable extends Migration
             $table->string('nome');
             $table->float('lat');
             $table->float('lng');
+            $table->integer('icon_id')->unsigned();
             $table->integer('categoria_id')->unsigned();
             $table->timestamps();
         });
 
         Schema::table('conteudos', function($table){
             $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
+        });
+
+        Schema::table('conteudos', function($table){
+            $table->foreign('icon_id')->references('id')->on('icons');
         });
     }
 
