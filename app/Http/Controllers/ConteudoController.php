@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Categoria;
 use App\Conteudo;
 use App\Informacao;
+use App\Icons;
 
 class ConteudoController extends Controller
 {
     public function index()
     {
-        $conteudos = Conteudo::with('categoria')->get();
+        $conteudos = Conteudo::with('categoria','icon')->get();
         //dd($conteudos);
         return view('conteudo/index', compact('conteudos'));
     }
@@ -19,7 +20,9 @@ class ConteudoController extends Controller
     public function create()
     {
         $categorias = Categoria::all();
-        return view('conteudo/create',compact('categorias'));
+        $icons = Icons::all();
+        //dd($icons);
+        return view('conteudo/create',compact('categorias','icons'));
     }
 
     public function store(Request $request)
@@ -33,6 +36,7 @@ class ConteudoController extends Controller
         $conteudo->lng              = $request->lng;
         $conteudo->lat              = $request->lat;
         $conteudo->categoria_id     = $request->categoria_id;
+        $conteudo->icon_id          = $request->icon_id;
         
         //dd($conteudo);
         
@@ -47,6 +51,7 @@ class ConteudoController extends Controller
                      'titulo' => $request->titulo[$i],
                      'dado' => $request->dado[$i],
                      'conteudo_id' =>$conteudo->id,
+                     'icon_id' =>$conteudo->id,
                 ]);
             }
         }
@@ -61,7 +66,11 @@ class ConteudoController extends Controller
 
     public function edit($id)
     {
-        
+        $conteudo = Conteudo::find($id);
+        $categorias = Categoria::all();
+        $icons = Icons::all();
+        //dd($icons);
+        return view('conteudo/edit',compact('conteudo','categorias','icons'));
     }
 
     public function update(Request $request, $id)

@@ -1,0 +1,8 @@
+/************* use sprite *****************/
+.smallIcons li, .smallIcons .ddTitleText{
+	/* .smallIcons .ddTitle .ddTitleText  - this will be used when option is selected */
+	background-image:url(../../images/msdropdown/icons/sprite.gif);
+	background-repeat:no-repeat;
+	padding-left:27px !important;	
+}
+/*******************************/

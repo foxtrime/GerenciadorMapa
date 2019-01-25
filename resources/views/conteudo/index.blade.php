@@ -27,10 +27,10 @@
                             <td>{{ $conteudo->categoria->nome }}</td>
                             <td>{{ $conteudo->nome }}</td>
                             <td>
-                            <a href="{{action('ConteudoController@edit',$conteudo->id)}}" 
+                            {{-- <a href="{{action('ConteudoController@edit',$conteudo->id)}}" 
                                 class="btn btn-warning btn-xs action botao_acao ">
                                 <i class="glyphicon glyphicon-pencil "></i>
-                            </a>                        
+                            </a>                         --}}
                             <form action="{{action('ConteudoController@destroy', $conteudo->id)}}" method="post">
                                 {{csrf_field()}}
                                 <input name="_method" type="hidden" value="DELETE">

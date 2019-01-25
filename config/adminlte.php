@@ -30,9 +30,9 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Mapa</b> Gerenciador',
 
-    'logo_mini' => '<b>A</b>LT',
+    'logo_mini' => '<b>M</b>G',
 
     /*
     |--------------------------------------------------------------------------

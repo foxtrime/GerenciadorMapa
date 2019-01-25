@@ -5,7 +5,6 @@
 @section('content_header')
     <h1>Criar Marcador</h1>
 @stop
-
 @section('content')
     <div class="panel panel-default">
         <div class="panel-heading">Conteudo</div>
@@ -14,6 +13,19 @@
                 {{ csrf_field() }}
                 <div class="row">
                     <div class="col-md-6">
+                        <div class="form-group label-floating has-roxo is-empty">
+                            <label style="padding-right: 30px;" class="control-label">Selecione o icone</label>
+                            {{-- @foreach ($icons as $icone)
+                                <img src="{{$icone->nomeicone}}" alt="">
+                            @endforeach        --}}
+                            <select name="icon_id" id="icon_id" class="iconselect">
+                                <option value="" selected>Escolha um Icone </option>
+                                @foreach ($icons as $icone)
+                                    <option value="{{$icone->id}}" data-image="{{$icone->nomeicone}}"></option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="form-group label-floating has-roxo is-empty">
 				        	<label class="control-label">Selecione a categoria</label>
 				        		<select name="categoria_id" id="categoria_id" class="form-control form-control error" required>
@@ -74,6 +86,15 @@
         </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script language="javascript">
+    $(document).ready(function(e) {
+        try {
+            $('.iconselect').msDropDown();
+        } catch(e) {
+        alert(e.message);
+        }
+    });
+</script>
     <script>
         $(document).ready(function() {
            $('.clonarcampo').click(function(){
@@ -100,7 +121,7 @@
                 marker = new google.maps.Marker({          
                     position: location,
                     map: map,
-                    draggable: true
+                    // draggable: true
                 });
             }
         }
@@ -110,7 +131,7 @@
             var options = {
                 zoom: 14,
                 center: centerPosition,
-                disableDefaultUI: true,
+                //disableDefaultUI: true,
                 mapTypeId: 'roadmap',
 
             };
