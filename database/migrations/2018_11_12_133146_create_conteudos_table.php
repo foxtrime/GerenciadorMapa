@@ -16,8 +16,8 @@ class CreateConteudosTable extends Migration
         Schema::create('conteudos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
-            $table->float('lat');
-            $table->float('lng');
+            $table->decimal('lat',10,8);
+            $table->decimal('lng',10,8);
             $table->integer('icon_id')->unsigned();
             $table->integer('categoria_id')->unsigned();
             $table->timestamps();
