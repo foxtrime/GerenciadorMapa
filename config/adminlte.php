@@ -124,6 +124,11 @@ return [
             'url'         => 'conteudo',
             'icon'        => 'file',
         ],
+        [
+            'text'        => 'Icones',
+            'url'         => 'icone',
+            'icon'        => 'file',
+        ],
         'ACCOUNT SETTINGS',
         [
             'text' => 'Profile',

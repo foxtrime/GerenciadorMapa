@@ -22,3 +22,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('categoria', 'CategoriaController');
 Route::resource('conteudo', 'ConteudoController');
+Route::resource('icone', 'IconeController');

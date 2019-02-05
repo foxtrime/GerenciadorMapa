@@ -23,9 +23,11 @@
     let infowindow;
 
     @foreach($conteudos as $conteudo)
+        var teste3 = '{{$conteudo->icon->nomeicone}}'
         var marker_{{ $conteudo->id }} = new google.maps.Marker({
             position: new google.maps.LatLng( {{ $conteudo->lat }} , {{ $conteudo->lng }}), // variável com as coordenadas Lat e Lng
 						map: map,
+                        icon: teste3,
 						title:"{{ $conteudo->titulo }}",
 						animation: google.maps.Animation.DROP,
         });
@@ -55,7 +57,7 @@
 				  	google.maps.event.addListener(infoWindow_{{ $conteudo->id }}, 'domready', function() {
                         
 					});
-					google.maps.event.addListener(marker_{{ $conteudo->id }}, 'click', () => {
+					google.maps.event.addListener(marker_{{ $conteudo->id }}, 'mouseover', () => {
 						if(infowindow)
 							infowindow.close();
     					infoWindow_{{ $conteudo->id }}.open(map, marker_{{ $conteudo->id }});
@@ -68,5 +70,7 @@
 }
 
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYcLJZYyy0T-9KTp-hmSd-r2H9sSNiY-s&callback=initMap"
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcdW2PsrS1fbsXKmZ6P9Ii8zub5FDu3WQ&callback=initMap"
   async defer></script> 
+
+  
