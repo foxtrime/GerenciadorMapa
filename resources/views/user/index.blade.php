@@ -187,7 +187,7 @@ function filterMarkers(box,categoria_id){
   }
 }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDcdW2PsrS1fbsXKmZ6P9Ii8zub5FDu3WQ&callback=initMap" async defer>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKXO_82UDrqpwwfR16HC7fnpFOHTmLyYs&callback=initMap" async defer>
 </script>
      
      
