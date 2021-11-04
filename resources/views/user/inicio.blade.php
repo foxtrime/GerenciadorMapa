@@ -74,16 +74,7 @@
                         <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
 
-                            <li>
-                                <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                    document.getElementById('logout-form').submit();">
-                                {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
-                            </li>
+                           
                         </ul>
                     </div>
                 </div>

@@ -25,7 +25,7 @@
     @foreach($conteudos as $conteudo)
         var teste3 = '{{$conteudo->icon->nomeicone}}'
         var marker_{{ $conteudo->id }} = new google.maps.Marker({
-            position: new google.maps.LatLng( {{ $conteudo->lat }} , {{ $conteudo->lng }}), // variável com as coordenadas Lat e Lng
+            position: new google.maps.LatLng( {{ $conteudo->lat }} , {{ $conteudo->lng }}), // variÃ¡vel com as coordenadas Lat e Lng
 						map: map,
                         icon: teste3,
 						title:"{{ $conteudo->titulo }}",

@@ -11,15 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth/login');
-});
+Route::get('/', 'HomeController@inicio');
 
-Auth::routes();
+Route::get('/login', 'AuthController@login')->name('login');
+Route::post('/entrar', 'AuthController@entrar');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+Route::group(['middleware' => ['auth']], function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Route::get('/', function () {
+//     return view('auth/login');
+// });
+
+// Auth::routes();
 
 Route::resource('categoria', 'CategoriaController');
 Route::resource('conteudo', 'ConteudoController');
 Route::resource('icone', 'IconeController');
+});
